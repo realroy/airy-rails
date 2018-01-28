@@ -3,5 +3,4 @@ Rails.application.routes.draw do
   resources :products
 
   root 'application#index'
-  match 'getAllProducts' => 'products#get_all_ajax', :via => :get
 end

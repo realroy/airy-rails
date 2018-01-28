@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  layout 'admin'
   def index
     @products = Product.all
   end
@@ -36,11 +37,6 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
-  end
-
-  def get_all_ajax
-    @products = Product.all
-    render json: @products
   end
 
   private

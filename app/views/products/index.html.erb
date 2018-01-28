@@ -1,9 +1,12 @@
-<div class="jumbotron">
+<%= content_for :title do %>
+  Product Manager
+<% end %>
+<div class="jumbotron mt-0 ">
   <div class="container">
     <h1>Products Manager</h1>
   </div>
 </div>
-<div class="container">
+<div class="">
   <%= link_to "Add Product", new_product_path, class: "btn btn-primary mb-4" %>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
@@ -30,13 +33,26 @@
           <td><%= link_to p.in_stock, edit_product_path(p) %></td>
           <td><%= link_to p.img_url, edit_product_path(p) %></td>
           <td>
-            <%= link_to "Edit", edit_product_path(p), :class => "btn btn-warning" %>
-            <%= link_to "Delete", product_path(p), method: :delete, data: {confirm: 'Are you sure?'}, :remote => true, :class => 'btn btn-danger' %>
+            <div class="btn-group w-100">
+              <%= link_to "Edit", edit_product_path(p), :class => "btn btn-warning w-100" %>
+              <%= link_to "Delete", product_path(p), method: :delete, data: {confirm: 'Are you sure?'}, :remote => true, :class => 'w-100 btn btn-danger' %>
+            </div>
           </td>
         </tr>
       <% end %>
       </tbody>
     </table>
+  </div>
+  <div class="input-group">
+    <div class="input-group-prepend w-25">
+      <button class="btn btn-secondary w-100">Next page</button>
+    </div>
+    <select class="custom-select">
+      <option class="text-center" selected value="1">1</option>
+    </select>
+    <div class="input-group-prepend w-25">
+      <button class="btn btn-secondary w-100">Previous page</button>
+    </div>
   </div>
 </div>
 <script>
