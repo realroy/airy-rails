@@ -1,0 +1,48 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Products Manager</h1>
+  </div>
+</div>
+<div class="container">
+  <%= link_to "Add Product", new_product_path, class: "btn btn-primary mb-4" %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">In Stock</th>
+        <th scope="col">Image Url</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody id="resource-tbody">
+      <% @products.each do |p| %>
+        <tr>
+          <th scope="row"><%= link_to p.id, edit_product_path(p) %></th>
+          <td><%= link_to p.name, edit_product_path(p) %></td>
+          <td><%= link_to p.brand, edit_product_path(p) %></td>
+          <td><%= link_to p.description, edit_product_path(p) %></td>
+          <td><%= link_to p.price, edit_product_path(p) %></td>
+          <td><%= link_to p.in_stock, edit_product_path(p) %></td>
+          <td><%= link_to p.img_url, edit_product_path(p) %></td>
+          <td>
+            <%= link_to "Edit", edit_product_path(p), :class => "btn btn-warning" %>
+            <%= link_to "Delete", product_path(p), method: :delete, data: {confirm: 'Are you sure?'}, :remote => true, :class => 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+    $(document).ready(() => {
+        $('.btn-danger').bind('ajax:success', function () {
+            $(this).closest('tr').fadeOut()
+        })
+    })
+</script>

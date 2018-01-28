@@ -1,0 +1,8 @@
+@import "bootstrap";
+
+.card-link {
+  color: black;
+  &:hover {
+    text-decoration: none;
+  }
+}
