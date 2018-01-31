@@ -6,6 +6,7 @@ class CreateInvoices < ActiveRecord::Migration[5.1]
       t.string :status
       t.float :vat
       t.string :img_url
+      t.references :customer
 
       t.timestamps
     end

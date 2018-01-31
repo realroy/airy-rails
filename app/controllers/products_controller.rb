@@ -1,11 +1,24 @@
 class ProductsController < ApplicationController
+  include Cart
   layout 'admin'
+
   def index
     @products = Product.all
   end
 
   def show
     @product = Product.find(params[:id])
+    @cart = get_cart_from(current_customer)
+    # if current_customer
+    #   active_invoice = current_customer.invoices.find_by(status: 'WAIT_FOR_CONFIRMED_PAYMENT')
+    #   @cart = []
+    #   active_invoice.orders.each do |o|
+    #     @cart.append({ product: Product.find(o.product_id), quantity: o.product_quantity })
+    #   end
+    # else
+    #   @cart = nil
+    # end
+    render layout: 'application'
   end
 
   def new

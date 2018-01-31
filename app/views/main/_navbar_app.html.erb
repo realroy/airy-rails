@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">AIRY</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <form class="form-inline my-2 my-lg-0">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Cart
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% if @cart %>
+            <div class="dropdown-item">Hello <%= current_customer.email %></div>
+            <div class="dropdown-divider"></div>
+            <% @cart.each do |order| %>
+              <a class="dropdown-item" href="<%= product_path(order[:product].id) %>">
+                (<%= order[:product].brand %>) <%= order[:product].name %> x <%= order[:quantity] %>
+              </a>
+            <% end %>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item mt-5" href="#">
+              <button class="btn btn-primary w-100">Check out</button>
+            </a>
+          <% else %>
+            <a class="dropdown-item text-muted">Your cart is empty.</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">Hello Guest, you're not <%= link_to 'sign in', customer_session_path %></div>
+          <% end %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

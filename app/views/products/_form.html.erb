@@ -1,7 +1,8 @@
-<%= form_with(model: @product) do |form| %>
+<%= form_for(@product) do |form| %>
   <% if @product.errors.any? %>
     <div class="alert alert-danger" role="alert">
-      <ul>
+      Error
+      <ul class="mb-0">
         <% @product.errors.full_messages.each do |msg| %>
           <li>
             <%= msg %>

@@ -4,7 +4,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.datetime :created_at
       t.integer :product_quantity
       t.references :invoice
-
+      t.references :product
       t.timestamps
     end
   end

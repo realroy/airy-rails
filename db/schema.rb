@@ -38,15 +38,19 @@ ActiveRecord::Schema.define(version: 20180129192025) do
     t.string "status"
     t.float "vat"
     t.string "img_url"
+    t.bigint "customer_id"
     t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_invoices_on_customer_id"
   end
 
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "product_quantity"
     t.bigint "invoice_id"
+    t.bigint "product_id"
     t.datetime "updated_at", null: false
     t.index ["invoice_id"], name: "index_orders_on_invoice_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|

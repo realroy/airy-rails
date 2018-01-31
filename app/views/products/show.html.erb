@@ -1,25 +1,57 @@
+<% content_for :title do %>
+  <%= @product.name %>
+<% end %>
 <div class="container mt-5 p-5">
   <div class="row">
     <div class="col">
-      <img src="http://via.placeholder.com/500x500" alt="product-thumbnail">
+      <% if @product.img_url %>
+        <img src="<%= @product.img_url %>" class="img-fluid" alt="product-thumbnail">
+      <% else %>
+        <img src="http://via.placeholder.com/500x500" alt="product-thumbnail">
+      <% end %>
     </div>
     <div class="col border ml-4 p-5">
       <h1><%= @product.name %></h1>
-      <p>
-        <small><%= @product.brand %></small>
+      <em class="text-muted"><%= @product.brand %></em>
+      <blockquote class="mt-5 mb-5 blockquote text-center font-sans-serif">
+        <p class="mb-0 p-5">" <%= @product.description %> "</p>
+      </blockquote>
+      <%= form_with scope: :order, url: '/orders', class: 'mt-5' do |f| %>
+        <input type="hidden" value="<%= @product.price %>" id="origin-product-price">
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <div class="form-group row">
+          <%= f.label :product_quantity, 'Quantity', class: 'col-sm-2 col-form-label' %>
+          <div class="col-sm-10">
+            <%= f.number_field :product_quantity, min: 1, value: 1, class: "form-control", id: "product-quantity" %>
+          </div>
+        </div>
         <br>
-        <%= @product.description %>
-      </p>
-      <form action="">
-        <div class="form-group">
-          <label for="">Quantity</label>
-          <input type="number" min="1" class="form-control"/>
+        <div class="form-group text-center">
+          <h1 id="order-price">
+            <%= @order ? @order.product.price * @order.product_quantity : @product.price %> $
+          </h1>
         </div>
-        <div class="form-group">
-          <h1><%= @product.price %> $</h1>
-        </div>
-        <button type="submit" class="btn btn-primary">Add to cart</button>
-      </form>
+        <%= f.submit 'Add to cart', class: 'btn btn-primary w-100' %>
+      <% end %>
     </div>
   </div>
 </div>
+<script>
+    function changeOrderPrice(quantity, price) {
+        if (!isNaN(quantity)) {
+            const newPrice = `${quantity * price} $`
+            $('#order-price').text(newPrice)
+        }
+    }
+
+    $(document).ready(function () {
+            const productQuantity = $('#product-quantity')
+            const price = parseInt($('#origin-product-price').val())
+            changeOrderPrice(productQuantity.val(), price)
+            productQuantity.change(event => {
+                const quantity = parseInt(event.target.value)
+                changeOrderPrice(quantity, price)
+            })
+        }
+    )
+</script>
